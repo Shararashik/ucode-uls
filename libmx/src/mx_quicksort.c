@@ -1,40 +1,29 @@
 #include "../inc/libmx.h"
 
 int mx_quicksort(char **arr, int left, int right) {
-    if (arr == NULL) {
+    int max_left = left;
+    int max_right = right;
+    char *swap_var;
+    if(!arr) {
         return -1;
     }
-    int swaps = 0;
-    int count = 0;
-    int r2 = right;
-    int l2 = left;
-    int pivot_length = mx_strlen(arr[(l2 + r2) / 2]);
-    while (l2 <= r2) {
-        while (mx_strlen(arr[l2]) < pivot_length) {
-            l2++;
-        }
-        while (mx_strlen(arr[r2]) > pivot_length) {
-            r2--;
-        }
-        if (l2 <= r2) {
-            if (mx_strlen(arr[r2]) != mx_strlen(arr[l2])) {
-                char *temp = arr[l2];
-                arr[l2] = arr[r2];
-                arr[r2] = temp;
-            }            
-            count++;
-            l2++;
-            r2--;
-        }
-    }    
-    if (left < right) {
-        swaps += (l2 - left - 1);
-        swaps += (right - l2 - 1);
-        swaps += mx_quicksort(arr, left, l2 -1);
-        swaps += mx_quicksort(arr, l2, right);
+    int s_operations = 0;
+    int mid = (left + right) / 2;
+    while((right - left) > 0) {
+        while(mx_strlen(arr[mid]) > mx_strlen(arr[left])) left++;
+        while(mx_strlen(arr[right]) > mx_strlen(arr[mid])) right--;
+        if(mx_strlen(arr[left]) != mx_strlen(arr[right])) {
+            swap_var = arr[left];
+            arr[left] = arr[right];
+            arr[right] = swap_var;
+            s_operations++;
+        }            
+        left++;
+        right--;
     }
-    return count;
+    if(max_right > max_left) {
+        s_operations += mx_quicksort(arr, max_left, right);
+        s_operations += mx_quicksort(arr, left, max_right);
+    }
+    return s_operations;
 }
-
-
-
