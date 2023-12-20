@@ -1,5 +1,8 @@
 #include "../libmx/inc/libmx.h"
 
+#include <dirent.h>
+#include <errno.h>
+
 void mx_get_flags(int argc, char *argv[], char **flags);
 
 typedef struct flags {
