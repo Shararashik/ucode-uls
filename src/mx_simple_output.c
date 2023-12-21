@@ -24,15 +24,12 @@ void mx_simple_output(void) {
     struct group *gr;
     //char time_buffer[80];
 
-    mx_printint(1);
     dir = opendir(".");
-    mx_printint(2); 
     if (dir == NULL) {
         //err
         perror("Error opening directory");
         exit(EXIT_FAILURE);
     }
-   mx_printint(3);
     while ((entry = readdir(dir)) != NULL) {
         char full_path[1024] = ".";
         write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
@@ -46,11 +43,8 @@ void mx_simple_output(void) {
         mx_printstr(" ");
         mx_printlong((long)file_stat.st_nlink);
         mx_printstr(" ");
-   mx_printint(5);
-        pw = getpwuid(file_stat.st_uid);
-   mx_printint(6);        
+        pw = getpwuid(file_stat.st_uid);      
         gr = getgrgid(file_stat.st_gid);
-   mx_printint(7);
         mx_printstr((pw != NULL) ? pw->pw_name : "unknown");
         mx_printstr(" ");
         mx_printstr((gr != NULL) ? gr->gr_name : "unknown");
@@ -61,10 +55,8 @@ void mx_simple_output(void) {
 
         // strftime(time_buffer, sizeof(time_buffer), "%b %d %H:%M", localtime(&file_stat.st_mtime));
         // mx_printstr(time_buffer);
-   mx_printint(8);
         // Display ACL information if available
         acl_t acl = acl_get_file(full_path, ACL_TYPE_ACCESS);
-           mx_printint(9);
         if (acl != NULL) {
             char *acl_text = acl_to_text(acl, NULL);
             mx_printstr(" ACL: ");
