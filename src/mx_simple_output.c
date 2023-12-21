@@ -16,24 +16,25 @@
 //     mx_printstr(permissions);
 // }
 
-void mx_simple_output() {
+void mx_simple_output(void) {
     DIR *dir;
     struct dirent *entry;
     struct stat file_stat;
     struct passwd *pw;
     struct group *gr;
-    char time_buffer[80];
+    //char time_buffer[80];
 
     dir = opendir(".");
     if (dir == NULL) {
+        //err
         perror("Error opening directory");
         exit(EXIT_FAILURE);
     }
 
     while ((entry = readdir(dir)) != NULL) {
         char full_path[1024];
-        int len = 0;
-        len += write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
+        //int len = 0;
+        //len += write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
 
         if (lstat(full_path, &file_stat) == -1) {
             perror("Error getting file information");

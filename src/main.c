@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     // for(int i = 0; i < argc - 1; i++) {
     //     mx_printstr(flags[i]);
     // }
-    // if (flags->R == 1) {
-    //     mx_printstr("R worked");
-    // }
+    if (flags->R == 1) {
+         mx_printstr("R worked");
+    }
     // if (flags->a == 1) {
     //     mx_printstr("a worked");
     // }    
@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
     // if (flags->T == 1) {
     //     mx_printstr("T worked");
     // }   
-    // if (flags->l == 1) {
+    //if (flags->longf == 1) {
     //     mx_printstr("l worked");
-    // }       
+    //}       
     // if (flags->one == 1) {
     //     mx_printstr("1 worked");
     // }     
@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
     // }         
     // if (flags->S == 1) {
     //     mx_printstr("S worked");
-    // }             
+    // }
+    mx_simple_output();             
     return 0;
 }
 
