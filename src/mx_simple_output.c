@@ -34,9 +34,8 @@ void mx_simple_output(void) {
     }
    mx_printint(3);
     while ((entry = readdir(dir)) != NULL) {
-        char full_path[1024];
-        //int len = 0;
-        //len += write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
+        char full_path[1024] = ".";
+        write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
         mx_printint(4);
         if (lstat(full_path, &file_stat) == -1) {
             perror("Error getting file information");
