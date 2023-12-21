@@ -17,8 +17,8 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
         minus = 0;
         for(int j = 0; j < mx_strlen(flags_str[i]); j++) {
             count++;
-            //check minus
             if (flags_str[i][j] == '-') {
+                //check minus
                 minus++;
             }
             if (minus > 1) {
@@ -41,15 +41,19 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 else if (flags_str[i][j] == 'a') { 
                     flags->a = true;
                 }       
+                //all, with dots
                 else if (flags_str[i][j] == 'A') { 
                     flags->A = true;
-                }              
+                } 
+                //dots, exept . and ..             
                 else if (flags_str[i][j] == 'G') { 
                     flags->G = true;
                 }     
+                //color flag
                 else if (flags_str[i][j] == 'h') { 
                     flags->h = true;
                 }        
+                //bytes, kilobytes etc
                 else if (flags_str[i][j] == '@') { 
                     flags->dog = true;
                 }          
@@ -64,13 +68,16 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 }         
                 else if (flags_str[i][j] == '1') { 
                     flags->one = true;
+                    flags->longf = false;
                 }            
+                //output in column, priority high, cannot work with -l
                 else if (flags_str[i][j] == 'C') { 
                     flags->C = true;
                 }       
                 else if (flags_str[i][j] == 'r') { 
                     flags->r = true;
-                }           
+                }      
+                //reverse, priority low     
                 else if (flags_str[i][j] == 't') { 
                     flags->t = true;
                 }   
