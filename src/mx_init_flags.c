@@ -49,7 +49,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                     flags->T = true;
                 }       
                 else if (flags_str[i][j] == 'l') { 
-                    flags->l = true;
+                    flags->longf = true;
                 }         
                 else if (flags_str[i][j] == '1') { 
                     flags->one = true;
