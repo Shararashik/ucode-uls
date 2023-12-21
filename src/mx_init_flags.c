@@ -4,6 +4,17 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
+        //cycle in case we have 3 minuses
+        for(int j = 0; j < mx_strlen(flags_str[i]); j++) {
+            if (flags_str[i][j] == '-') {
+                minus++;
+                if (minus >= 3) {
+                    //err
+                    mx_flag_error(&flags, '-');
+                }
+            }        
+        }
+        minus = 0;
         for(int j = 0; j < mx_strlen(flags_str[i]); j++) {
             count++;
             //check minus
@@ -13,7 +24,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
             if (minus > 1) {
                 if (flags_str[i][j] == '-' && flags_str[i][j - 1] != '-') {
                     //err, 'cause try type ls -l-
-                    mx_printstr("err");
+                    mx_flag_error(&flags, '-');
                 }                
                 if (minus >= 2 && flags_str[i][j - 1] == '-') {
                     break;
@@ -69,9 +80,12 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 else if (flags_str[i][j] == 'c') { 
                     flags->c = true;
                 }         
-                if (flags_str[i][j] == 'S') { 
+                else if (flags_str[i][j] == 'S') { 
                     flags->S = true;
-                }                                                                                                                                                                                             
+                } 
+                else {
+                    mx_flag_error(&flags, flags_str[i][j]);
+                }                                                                                                                                                                                            
             }
         }   
     }

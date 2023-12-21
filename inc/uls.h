@@ -19,6 +19,8 @@ typedef struct flags {
 }   flags_t;
 
 flags_t* mx_init_flags(char **flags_str, int argc);
+void mx_flag_error(flags_t **flags, char flag_symbol);
+void mx_sys_error(const char* str);
 void mx_printlong(long num);
 void mx_simple_output(void);
 
