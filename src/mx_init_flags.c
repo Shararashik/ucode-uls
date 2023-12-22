@@ -57,15 +57,24 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 else if (flags_str[i][j] == '@') { 
                     flags->dog = true;
                 }          
+                //Display extended attribute keys and sizes
+                //show something only with -l
                 else if (flags_str[i][j] == 'e') { 
                     flags->e = true;
                 }       
+                //Print the Access Control List (ACL) associated with the file,
+                // if present, in long (-l) output (???)
+                // doesnt work on macOS, while tested. Skip??
                 else if (flags_str[i][j] == 'T') { 
                     flags->T = true;
                 }       
+                //ONLY with -l, display
+                //complete time information for the file, including month, day,
+                //hour, minute, second, and year.
                 else if (flags_str[i][j] == 'l') { 
                     flags->longf = true;
-                }         
+                } 
+                //eto baza        
                 else if (flags_str[i][j] == '1') { 
                     flags->one = true;
                     flags->longf = false;
@@ -74,6 +83,8 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 else if (flags_str[i][j] == 'C') { 
                     flags->C = true;
                 }       
+                //print in multi-column but this is already standart view
+                //Useless flag, skip? Also doesn't work with -l, like -1
                 else if (flags_str[i][j] == 'r') { 
                     flags->r = true;
                 }      
@@ -81,15 +92,21 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 else if (flags_str[i][j] == 't') { 
                     flags->t = true;
                 }   
+                //Sort by time modified
                 else if (flags_str[i][j] == 'u') { 
                     flags->u = true;
                 }             
+                //Use time of last access(ACL?), instead of last modification of the file
+                //work with -l and -t
                 else if (flags_str[i][j] == 'c') { 
                     flags->c = true;
                 }         
+                //Use time when file status was last changed for sorting or printing
+                //Show nothing while testing
                 else if (flags_str[i][j] == 'S') { 
                     flags->S = true;
                 } 
+                //Sort files by size
                 else {
                     mx_flag_error(&flags, flags_str[i][j]);
                 }                                                                                                                                                                                            
