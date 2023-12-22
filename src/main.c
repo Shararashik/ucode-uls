@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     // for(int i = 0; i < argc - 1; i++) {
     //     mx_printstr(flags[i]);
     // }
-    if (flags->R == 1) {
-         mx_printstr("R worked");
-    }
+    //if (flags->R == 1) {
+    //     mx_printstr("R worked");
+   // }
     // if (flags->a == 1) {
     //     mx_printstr("a worked");
     // }    
@@ -58,8 +58,9 @@ int main(int argc, char *argv[])
     //     mx_printstr("S worked");
     // }
     //mx_simple_output();   
-    mx_output_with_flag_one();
-
+    if (flags->one == 1) {
+        mx_output_with_flag_one(&flags);
+    }
     return 0;
 }
 

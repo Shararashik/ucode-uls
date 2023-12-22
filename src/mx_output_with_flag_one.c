@@ -1,46 +1,83 @@
 #include "uls.h"
 
-#include <stdlib.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <grp.h>
-#include <unistd.h>
-#include <string.h>
-#include <time.h>
-#include <sys/acl.h>
-#include <errno.h>
+static void struct_bubble_sort(struct dirent **arr, int n) {
+    int swapped;
+    struct dirent *temp;
 
-void print_error(const char *msg) {
-    write(STDERR_FILENO, msg, strlen(msg));
-    exit(EXIT_FAILURE);
+    for (int i = 0; i < n - 1; i++) {
+        swapped = 0;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (strcmp(arr[j]->d_name, arr[j + 1]->d_name) > 0) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+
+        if (!swapped) {
+            break;
+        }
+    }
 }
 
-void print_entry(const char *name, const struct stat *statbuf) {
-    // Write the file/directory name
-    write(STDOUT_FILENO, name, strlen(name));
-
-    // Write a newline character
-    char newline = '\n';
-    write(STDOUT_FILENO, &newline, 1);
-}
-
-void mx_output_with_flag_one(const char *path) {
+void mx_output_with_flag_one(flags_t **flags_init) {
+    flags_t *flags = *flags_init;
     DIR *dir = opendir(".");
     if (dir == NULL) {
-        print_error("opendir");
+        mx_printstr("opendir");
     }
 
+    struct dirent **namelist;
+    int n = 0;
     struct dirent *entry;
+
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_name[0] != '.' || entry->d_name[1] == '\0') {  // Exclude hidden files
-            print_entry(entry->d_name, &statbuf);
+        if (flags->A == true && flags->a == false) {
+            if ((mx_strcmp(entry->d_name, ".")) && (mx_strcmp(entry->d_name, "..")) && (entry->d_name[1] != '.')) {
+                n++;
+            }
+        }
+        else if (flags->a == true) {
+            n++;
+        }
+        else if (entry->d_name[0] != '.') {
+            n++;
         }
     }
 
-    if (closedir(dir) == -1) {
-        print_error("closedir");
+    closedir(dir);
+
+    namelist = malloc(n * sizeof(struct dirent *));
+
+    dir = opendir(".");
+    n = 0;
+    while ((entry = readdir(dir)) != NULL) {
+        if (flags->A == true && flags->a == false) {
+            if ((mx_strcmp(entry->d_name, ".")) && (mx_strcmp(entry->d_name, "..")) && (entry->d_name[1] != '.')) {
+                namelist[n++] = entry;
+            }
+        }
+        else if (flags->a == true) {
+            namelist[n++] = entry;
+        }
+        else if (entry->d_name[0] != '.') {
+            namelist[n++] = entry;
+        }
     }
+
+    closedir(dir);
+    struct_bubble_sort(namelist, n);//alpabet order
+    for (int i = 0; i < n; ++i) {
+        // Write the file/directory name
+        write(STDOUT_FILENO, namelist[i]->d_name, strlen(namelist[i]->d_name));
+
+        // Write a newline character
+        char newline = '\n';
+        write(STDOUT_FILENO, &newline, 1);
+    }
+
+    free(namelist);
 }
 
 
