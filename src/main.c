@@ -57,7 +57,9 @@ int main(int argc, char *argv[])
     // if (flags->S == 1) {
     //     mx_printstr("S worked");
     // }
-    mx_simple_output();             
+    //mx_simple_output();   
+    mx_output_with_flag_one();
+
     return 0;
 }
 

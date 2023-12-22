@@ -23,4 +23,5 @@ void mx_flag_error(flags_t **flags, char flag_symbol);
 void mx_sys_error(const char* str);
 void mx_printlong(long num);
 void mx_simple_output(void);
+void mx_output_with_flag_one(const char *path);
 
