@@ -1,7 +1,6 @@
 #include "uls.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     char *flags_str[argc - 1];
     mx_get_flags(argc, argv, flags_str);
     
