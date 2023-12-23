@@ -1,7 +1,7 @@
 #include "uls.h"
 
 t_list *mx_get_files(char *path, flags_t *flags) {
-    t_list files = NULL;
+    t_list *files = NULL;
     DIR *dir;
     struct dirent *entry;
     dir = opendir(path);
@@ -20,11 +20,11 @@ t_list *mx_get_files(char *path, flags_t *flags) {
     while ((entry = readdir(dir)) != NULL) {
         if(!files) {
             if(a_flag || A_flag && mx_strcmp(mx_strndup(entry->d_name, 1), ".") == 0) {
-                mx_create_node(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                files = mx_create_node((char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else  if(a_flag && mx_strcmp(mx_strndup(entry->d_name, 2), "..") == 0) {
-                mx_create_node(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                files = mx_create_node((char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else if(!a_flag && !A_flag && mx_strcmp(mx_strndup(entry->d_name, 1), ".") != 0) {
-                mx_create_node(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                files = mx_create_node((char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else {
                 continue;
             }
