@@ -14,7 +14,8 @@
 
 void mx_get_flags(int argc, char *argv[], char **flags);
 
-typedef void (*SortFunction)(t_list*);
+typedef void (*SortFunction)(t_list *);
+typedef void (*OutputFunction)(t_list*);
 
 typedef struct flags {
     bool R, a, A, G, h, dog, e, T, longf, one, C, r, t, u, c, S;
@@ -29,4 +30,5 @@ void mx_output_with_flag_one(flags_t **flags);
 SortFunction mx_choose_sort(flags_t *flags);
 t_list *mx_get_files(char *path, flags_t *flags);
 void mx_uls(flags_t *flags, char *path, void (*output)(t_list*));
+OutputFunction mx_get_output(flags_t *flags);
 
