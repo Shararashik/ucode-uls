@@ -8,7 +8,7 @@ t_list *mx_get_files(char *path, flags_t *flags) {
     if (dir == NULL) {
         //change
         perror("Error opening directory");
-        return 1;
+        return files;
     }
     bool a_flag, A_flag;
     if(flags->A) {
@@ -30,11 +30,11 @@ t_list *mx_get_files(char *path, flags_t *flags) {
             }
         } else {
             if(a_flag || A_flag && mx_strcmp(mx_strndup(entry->d_name, 1), ".") == 0) {
-                mx_push_front(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                mx_push_front(&files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else  if(a_flag && mx_strcmp(mx_strndup(entry->d_name, 2), "..") == 0) {
-                mx_push_front(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                mx_push_front(&files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else if(!a_flag && !A_flag && mx_strcmp(mx_strndup(entry->d_name, 1), ".") != 0) {
-                mx_push_front(files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
+                mx_push_front(&files, (char *)(mx_strjoin(mx_strjoin(path, "/"), entry->d_name)));
             } else {
                 continue;
             }

@@ -21,13 +21,11 @@ static void struct_bubble_sort(struct dirent **arr, int n) {
     }
 }
 
-void mx_output_with_flag_one(flags_t **flags_init) {
-    flags_t *flags = *flags_init;
+void mx_output_with_flag_one(t_list *files, flags_t *flags) {
     DIR *dir = opendir(".");
     if (dir == NULL) {
         mx_printstr("opendir");
     }
-
     struct dirent **namelist;
     int n = 0;
     struct dirent *entry;
