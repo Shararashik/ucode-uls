@@ -5,7 +5,6 @@ int main(int argc, char *argv[]) {
     mx_get_flags(argc, argv, flags_str);
     flags_t *flags = mx_init_flags(flags_str, argc - 1);
     //code mx_get_output that returns function
-    t_list *files = mx_get_files(".", flags);
     mx_uls(flags, ".", mx_get_output(flags));
     // for(int i = 0; i < argc - 1; i++) {
     //     mx_printstr(flags[i]);

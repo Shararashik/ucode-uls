@@ -35,3 +35,5 @@ t_list *mx_get_files(char *path, flags_t *flags);
 void mx_uls(flags_t *flags, char *path, OutputFunction output);
 OutputFunction mx_get_output(flags_t *flags);
 bool mx_abccmp(void *s1, void *s2);
+bool mx_check_file(char *path, flags_t *flags);
+char *mx_get_filename(char *str);

@@ -40,10 +40,12 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 }
                 else if (flags_str[i][j] == 'a') { 
                     flags->a = true;
+                    flags->A = false;
                 }       
                 //all, with dots
                 else if (flags_str[i][j] == 'A') { 
                     flags->A = true;
+                    flags->a = false;
                 } 
                 //dots, exept . and ..             
                 else if (flags_str[i][j] == 'G') { 
