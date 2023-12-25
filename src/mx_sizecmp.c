@@ -1,8 +1,7 @@
 #include "uls.h"
 
 bool mx_sizecmp(void *f1, void *f2) {
-    struct stat entry;
-    struct stat entry2;
+    struct stat entry, entry2;
     lstat(f1, &entry);
     long size1, size2;
     size1 = entry.st_size;
@@ -14,5 +13,11 @@ bool mx_sizecmp(void *f1, void *f2) {
     // mx_printstr(f2);
     // mx_printlong(size2);
     // mx_printstr("\n");
-    return size1 > size2;
+    int res = mx_strcmp(f1, f2);
+    bool result;
+    if(size1 == size2) {
+        return res > 0;
+    } else {
+        return size1 < size2;
+    }
 }
