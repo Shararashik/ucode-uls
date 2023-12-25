@@ -14,10 +14,11 @@ bool mx_sizecmp(void *f1, void *f2) {
     // mx_printlong(size2);
     // mx_printstr("\n");
     int res = mx_strcmp(f1, f2);
-    bool result;
-    if(size1 == size2) {
-        return res > 0;
-    } else {
-        return size1 < size2;
-    }
+    // bool result;
+    return size1 == size2 ? res > 0 : size1 < size2;
+    // if(size1 == size2) {
+    //     return res > 0;
+    // } else {
+    //     return size1 < size2;
+    // }
 }
