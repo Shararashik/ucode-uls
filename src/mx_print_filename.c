@@ -6,7 +6,7 @@ void mx_print_filename(const char *name, const char *full_path, flags_t *flags) 
         mx_printstr("lstat");
     }
 
-    if (flags->G == true) {
+    if (flags->G) {
         const char *color_code = COLOR_RESET;
 
         if (S_ISDIR(file_stat.st_mode)) {

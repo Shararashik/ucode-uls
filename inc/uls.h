@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/acl.h>
 #include <errno.h>
+#include <sys/ioctl.h>
 
 #define COLOR_RESET "\x1b[0m"
 #define COLOR_DIR "\x1b[34m"
@@ -31,11 +32,11 @@ flags_t* mx_init_flags(char **flags_str, int argc);
 void mx_flag_error(flags_t **flags, char flag_symbol);
 void mx_sys_error(const char* str);
 void mx_printlong(long num);
-void mx_simple_output(void);
+void mx_simple_output(t_list *files, flags_t *flags);
 void mx_output_with_flag_one(t_list *files, flags_t *flags);
 SortComparator mx_choose_sort(flags_t *flags);
 t_list *mx_get_files(char *path, flags_t *flags);
-void mx_uls(flags_t *flags, char *path, OutputFunction output);
+void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title);
 OutputFunction mx_get_output(flags_t *flags);
 bool mx_abccmp(void *s1, void *s2);
 bool mx_check_file(char *path, flags_t *flags);
