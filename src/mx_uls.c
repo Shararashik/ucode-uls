@@ -7,6 +7,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output) {
     //     mx_printstr(files->data);
     //     mx_printstr("\n");
     // }
+    //mx_sort_list(files, mx_abccmp);
     mx_sort_list(files, sort);
     mx_printstr(path);
     mx_printstr(":\n");
