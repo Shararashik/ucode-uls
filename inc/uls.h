@@ -41,3 +41,4 @@ OutputFunction mx_get_output(flags_t *flags);
 bool mx_abccmp(void *s1, void *s2);
 bool mx_check_file(char *path, flags_t *flags);
 char *mx_get_filename(char *str);
+bool mx_sizecmp(void *f1, void *f2);
