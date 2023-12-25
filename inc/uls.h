@@ -42,3 +42,4 @@ bool mx_check_file(char *path, flags_t *flags);
 char *mx_get_filename(char *str);
 bool mx_sizecmp(void *f1, void *f2);
 void mx_print_filename(const char *name, const char *full_path, flags_t *flags);
+void mx_file_error(const char *wrong_directory);

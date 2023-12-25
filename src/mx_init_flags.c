@@ -2,9 +2,16 @@
 
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
+    int index = 0;
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
-        //cycle in case we have 3 minuses
+        
+        if (flags_str[i][0] != '-' && index == 0) {
+            index = i;
+            //mx_printint(index);
+            break;
+        }
+        
         for(int j = 0; j < mx_strlen(flags_str[i]); j++) {
             if (flags_str[i][j] == '-') {
                 minus++;
@@ -14,6 +21,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 }
             }        
         }
+        //cycle in case we have 3 minuses       
         minus = 0;
         for(int j = 0; j < mx_strlen(flags_str[i]); j++) {
             count++;
@@ -116,10 +124,29 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                     mx_flag_error(&flags, flags_str[i][j]);
                 }                                                                                                                                                                                            
             }
-        }   
+        }
     }
+    //cycle for init_path
+    if (index != 0) {
+        for (int i = index; i < argc; i++)  {
+            struct stat path_stat;
+            if (stat(flags_str[i], &path_stat) == -1) {
+                mx_file_error(flags_str[i]);
+                //uls: xxx: No such file or directory
+            }
+
+            if (S_ISDIR(path_stat.st_mode) || S_ISREG(path_stat.st_mode)) {
+                //mx_printstr(flags_str[i]);
+                //mx_printstr(" ");
+            } else {
+                mx_file_error(flags_str[i]);
+            }
+
+        }   
+    }    
     return flags;
 }
+
 
 
 
