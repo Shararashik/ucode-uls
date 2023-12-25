@@ -12,7 +12,11 @@
 #include <sys/acl.h>
 #include <errno.h>
 
-
+#define COLOR_RESET "\033[0m"
+#define COLOR_DIR "\033[1;34m"
+#define COLOR_LINK "\033[1;36m"
+#define COLOR_EXEC "\033[1;32m"
+#define COLOR_OTHER "\033[1;33m"
 
 
 void mx_get_flags(int argc, char *argv[], char **flags);
