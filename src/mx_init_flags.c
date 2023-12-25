@@ -75,6 +75,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 //hour, minute, second, and year.
                 else if (flags_str[i][j] == 'l') { 
                     flags->longf = true;
+                    flags->one = false;
                 } 
                 //eto baza        
                 else if (flags_str[i][j] == '1') { 
@@ -97,11 +98,13 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 //Sort by time modified
                 else if (flags_str[i][j] == 'u') { 
                     flags->u = true;
+                    flags->c = false;
                 }             
                 //Use time of last access(ACL?), instead of last modification of the file
                 //work with -l and -t
                 else if (flags_str[i][j] == 'c') { 
                     flags->c = true;
+                    flags->u = false;
                 }         
                 //Use time when file status was last changed for sorting or printing
                 //Show nothing while testing
