@@ -12,11 +12,10 @@
 #include <sys/acl.h>
 #include <errno.h>
 
-#define COLOR_RESET "\033[0m"
-#define COLOR_DIR "\033[1;34m"
-#define COLOR_LINK "\033[1;36m"
-#define COLOR_EXEC "\033[1;32m"
-#define COLOR_OTHER "\033[1;33m"
+#define COLOR_RESET "\x1b[0m"
+#define COLOR_DIR "\x1b[34m"
+#define COLOR_EXEC "\x1b[31m"
+
 
 
 void mx_get_flags(int argc, char *argv[], char **flags);
@@ -42,3 +41,4 @@ bool mx_abccmp(void *s1, void *s2);
 bool mx_check_file(char *path, flags_t *flags);
 char *mx_get_filename(char *str);
 bool mx_sizecmp(void *f1, void *f2);
+void mx_print_filename(const char *name, const char *full_path, flags_t *flags);
