@@ -9,6 +9,9 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     // }
     //mx_sort_list(files, mx_abccmp);
     mx_sort_list(files, sort);
+    if (flags->r) {
+        mx_reverse_list(&files);
+    }
     if(title) {
         mx_printstr(path);
         mx_printstr(":\n");
