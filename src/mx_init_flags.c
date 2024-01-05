@@ -1,5 +1,5 @@
 #include "uls.h"
-//./uls -1 -R ghfg src
+
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
     int index = 999;

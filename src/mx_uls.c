@@ -30,3 +30,4 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
         }
     }
 }
+

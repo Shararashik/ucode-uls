@@ -47,3 +47,4 @@ void mx_print_filename(const char *name, const char *full_path, flags_t *flags);
 void mx_file_error(const char *wrong_directory);
 void mx_output_long(t_list *files, flags_t *flags);
 void mx_print_permissions(mode_t mode);
+bool mx_timecmp(void *f1, void *f2);
