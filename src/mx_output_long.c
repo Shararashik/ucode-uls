@@ -1,21 +1,17 @@
 #include "uls.h"
 
 void mx_output_long(t_list *files, flags_t *flags) {
-    DIR *dir;
-    struct dirent *entry;
     struct stat file_stat;
     struct passwd *pw;
     struct group *gr;
     //char time_buffer[80];
-
     for (t_list *i = files; i; i = i->next) {
-        write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
         if (lstat(i->data, &file_stat) == -1) {
             perror("Error getting file information");
             exit(EXIT_FAILURE);
         }
         mx_print_permissions(file_stat.st_mode);
-        ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0);
+        ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
         if(size > 0) {
             mx_printchar('@');
         }
@@ -56,5 +52,4 @@ void mx_output_long(t_list *files, flags_t *flags) {
         mx_printstr("\n");
     }
 
-    closedir(dir);
 }
