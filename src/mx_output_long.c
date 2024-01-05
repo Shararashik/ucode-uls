@@ -48,7 +48,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
         for (len; link_len != 0; len++) {
             link_len /= 10;
         }
-        for (int i = 0; i < l_len - len; i++) {
+        for (int i = 0; i < l_len - len - 1; i++) {
             mx_printstr(" ");
         }
 
