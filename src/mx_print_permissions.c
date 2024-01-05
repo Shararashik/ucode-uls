@@ -1,6 +1,6 @@
 #include "uls.h"
 
-void mx_print_permissions(mode_t mode) {
+char *mx_get_permissions(mode_t mode) {
     char permissions[11];
     permissions[0] = (mode & S_ISDIR(mode)) ? 'd' : '-';
     permissions[1] = (mode & S_IRUSR) ? 'r' : '-';
@@ -14,5 +14,5 @@ void mx_print_permissions(mode_t mode) {
     permissions[9] = (mode & S_IXOTH) ? 'x' : '-';
     permissions[10] = '\0';
 
-    mx_printstr(permissions);
+    return permissions;
 }
