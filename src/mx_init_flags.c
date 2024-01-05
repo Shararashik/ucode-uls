@@ -1,12 +1,12 @@
 #include "uls.h"
-
+//./uls -1 -R ghfg src
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
-    int index = 0;
+    int index = 999;
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
         
-        if (flags_str[i][0] != '-' && index == 0) {
+        if (flags_str[i][0] != '-' && index == 999) {
             index = i;
             //mx_printint(index);
             break;
@@ -127,7 +127,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
         }
     }
     //cycle for init_path
-    if (index != 0) {
+    if (index != 999) {
         for (int i = index; i < argc; i++)  {
             struct stat path_stat;
             if (stat(flags_str[i], &path_stat) == -1) {
