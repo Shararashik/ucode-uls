@@ -2,20 +2,12 @@
 
 bool mx_timecmp(void *f1, void *f2) {
     struct stat entry, entry2;
-    stat(f1, &entry);
-    stat(f2, &entry2);
-
-    // Сравниваем даты последней модификации файлов
-    if (entry.st_mtime < entry2.st_mtime) {
-        return true; // Порядок сохраняется
-    } else if (entry.st_mtime > entry2.st_mtime) {
-        return false; // Порядок меняется
-    } else if (entry.st_mtim.tv_nsec < entry2.st_mtim.tv_nsec) {
-        return true; // Порядок сохраняется (учитывая миллисекунды)
-    } else if (entry.st_mtim.tv_nsec > entry2.st_mtim.tv_nsec) {
-        return false; // Порядок меняется (учитывая миллисекунды)
-    }
-
-    return true;
+    lstat(f1, &entry);
+    long size1, size2;
+    size1 = entry.st_mtimespec.tv_sec;
+    lstat(f2, &entry2);
+    size2 = entry2.st_mtimespec.tv_sec;
+    int res = mx_strcmp(f1, f2);
+    return size1 == size2 ? res < 0 : size1 < size2;
 }
 
