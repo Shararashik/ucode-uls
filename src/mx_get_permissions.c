@@ -14,5 +14,5 @@ char *mx_get_permissions(mode_t mode) {
     permissions[9] = (mode & S_IXOTH) ? 'x' : '-';
     permissions[10] = '\0';
 
-    return permissions;
+    return mx_strdup(permissions);
 }
