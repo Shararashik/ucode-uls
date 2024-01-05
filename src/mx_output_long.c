@@ -7,7 +7,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
     //char time_buffer[80];
     for (t_list *i = files; i; i = i->next) {
         if (lstat(i->data, &file_stat) == -1) {
-            perror("Error getting file information");
+            mx_file_error(mx_get_filename(i->data));
             exit(EXIT_FAILURE);
         }
         mx_print_permissions(file_stat.st_mode);
