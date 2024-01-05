@@ -7,13 +7,13 @@ void mx_output_long(t_list *files, flags_t *flags) {
     int perm_max = 0;
     long link_max = 0;
     for (t_list *i = files; i; i = i->next) {
-        char *permissions = mx_get_permissions(file_stat.st_mode);
+        char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
         if(size > 0) {
-            permissions = mx_strjoin(permissions, '@');
+            permissions = mx_strjoin(permissions, "@");
         }
         if(mx_strlen(permissions) > perm_max) {
-            perm_max = permissions;
+            perm_max = mx_strlen(permissions);
         }
         if (lstat(i->data, &file_stat) == -1) {
             mx_file_error(mx_get_filename(i->data));
@@ -32,10 +32,10 @@ void mx_output_long(t_list *files, flags_t *flags) {
             mx_file_error(mx_get_filename(i->data));
             exit(EXIT_FAILURE);
         }
-        char *permissions = mx_get_permissions(file_stat.st_mode);
+        char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
         if(size > 0) {
-            permissions = mx_strjoin(permissions, '@');
+            permissions = mx_strjoin(permissions, "@");
         }
         mx_printstr(permissions);
         if(mx_strlen(permissions) != perm_max) {
@@ -45,8 +45,9 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         int len = 0;
         long link_len = (long)file_stat.st_nlink;
-        for (len; link_len != 0; len++) {
+        for (int i = 0; link_len != 0; i++) {
             link_len /= 10;
+            len = i;
         }
         for (int i = 0; i < l_len - len; i++) {
             mx_printstr(" ");
