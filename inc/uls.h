@@ -12,6 +12,7 @@
 #include <sys/acl.h>
 #include <errno.h>
 #include <sys/ioctl.h>
+#include <sys/xattr.h>
 
 #define COLOR_RESET "\x1b[0m"
 #define COLOR_DIR "\x1b[34m"
@@ -44,3 +45,5 @@ char *mx_get_filename(char *str);
 bool mx_sizecmp(void *f1, void *f2);
 void mx_print_filename(const char *name, const char *full_path, flags_t *flags);
 void mx_file_error(const char *wrong_directory);
+void mx_output_long(t_list *files, flags_t *flags);
+void mx_print_permissions(mode_t mode);
