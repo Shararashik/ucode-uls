@@ -74,7 +74,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 }       
                 //Print the Access Control List (ACL) associated with the file,
                 // if present, in long (-l) output (???)
-                // doesnt work on macOS, while tested. Skip??
+                // doesnt work on macOS, while tested. Skip?? // pizdish, vse work
                 else if (flags_str[i][j] == 'T') { 
                     flags->T = true;
                 }       

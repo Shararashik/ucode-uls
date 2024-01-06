@@ -6,10 +6,13 @@ void mx_output_long(t_list *files, flags_t *flags) {
     struct group *gr;
     int perm_max = 0;
     long link_max = 0;
+    long size_max = 0;
     for (t_list *i = files; i; i = i->next) {
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
-        if(size > 0) {
+        if(flags->e && size > 0) {
+            permissions = mx_strjoin(permissions, "+");
+        } else if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
         if(mx_strlen(permissions) > perm_max) {
@@ -22,19 +25,28 @@ void mx_output_long(t_list *files, flags_t *flags) {
         if(link_max < (long)file_stat.st_nlink) {
             link_max = (long)file_stat.st_nlink;
         }
+        if(size_max < (long)file_stat.st_size) {
+            size_max = (long)file_stat.st_size;
+        }
     }
     int l_len;
-    for (l_len = 0; link_max != 0; l_len++) {
+    for(l_len = 0; link_max != 0; l_len++) {
         link_max /= 10;
     }
-    for (t_list *i = files; i; i = i->next) {
+    int s_len;
+    for(s_len = 0; size_max != 0; s_len++) {
+        size_max /= 10;;
+    }
+    for(t_list *i = files; i; i = i->next) {
         if (lstat(i->data, &file_stat) == -1) {
             mx_file_error(mx_get_filename(i->data));
             exit(EXIT_FAILURE);
         }
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
-        if(size > 0) {
+        if(flags->e && size > 0) {
+            permissions = mx_strjoin(permissions, "+");
+        } else if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
         mx_printstr(permissions);
@@ -52,7 +64,6 @@ void mx_output_long(t_list *files, flags_t *flags) {
         for (int i = 0; i < l_len - len - 1; i++) {
             mx_printstr(" ");
         }
-
         mx_printlong((long)file_stat.st_nlink);
         mx_printstr(" ");
         pw = getpwuid(file_stat.st_uid);      
@@ -60,9 +71,17 @@ void mx_output_long(t_list *files, flags_t *flags) {
         mx_printstr((pw != NULL) ? pw->pw_name : "unknown");
         mx_printstr("  ");
         mx_printstr((gr != NULL) ? gr->gr_name : "unknown");
-        mx_printstr(" ");
+        mx_printstr("  ");
+        long size_len = (long)file_stat.st_size;
+        int count;
+        for(count = 0; size_len != 0; count++) {
+            size_len /= 10;
+        }
+        for(long i = 0; i < s_len - count; i++) {
+            mx_printstr(" ");
+        }
         //fix format of output down below
-        mx_printlong((long long)file_stat.st_size);
+        mx_printlong((long)file_stat.st_size);
         //char *date =    // add variations of time of modification and etc.
         time_t lastModificationTime = file_stat.st_mtime;
         mx_printstr(" ");
@@ -83,6 +102,13 @@ void mx_output_long(t_list *files, flags_t *flags) {
         // }
 
         mx_printstr("\n");
+        if(flags->dog) {
+            char *attrBuffer = (char *)malloc((size_t)size);
+            ssize_t attrCount = listxattr(i->data, attrBuffer, (size_t)size, 0);
+            for (ssize_t i = 0; i < attrCount; i += mx_strlen(&attrBuffer[i]) + 1) {
+                mx_printchar(&attrBuffer[i]);
+            }
+        }
     }
 
 }

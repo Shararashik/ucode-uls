@@ -49,3 +49,4 @@ void mx_output_long(t_list *files, flags_t *flags);
 char *mx_get_permissions(mode_t mode);
 bool mx_timecmp(void *f1, void *f2);
 void mx_reverse_list(t_list **head);
+bool mx_lastmodcmp(void *f1, void *f2);
