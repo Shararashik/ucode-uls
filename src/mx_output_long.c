@@ -83,9 +83,14 @@ void mx_output_long(t_list *files, flags_t *flags) {
         //fix format of output down below
         mx_printlong((long)file_stat.st_size);
         //char *date =    // add variations of time of modification and etc.
-        time_t lastModificationTime = file_stat.st_mtime;
+        time_t t_date;
+        if(flags->u) {
+            t_date = file_stat.st_atime;
+        } else {
+            t_date = file_stat.st_mtime;
+        }
         mx_printstr(" ");
-        char *date = ctime(&lastModificationTime);
+        char *date = ctime(&t_date);
         //mx_printstr(date);
         date += 4; 
         mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - 9)));
