@@ -111,7 +111,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
             char *attrBuffer = (char *)malloc((size_t)size);
             ssize_t attrCount = listxattr(i->data, attrBuffer, (size_t)size, 0);
             for (ssize_t i = 0; i < attrCount; i += mx_strlen(&attrBuffer[i]) + 1) {
-                mx_printchar(&attrBuffer[i]);
+                mx_printchar(attrBuffer[i]);
             }
         }
     }
