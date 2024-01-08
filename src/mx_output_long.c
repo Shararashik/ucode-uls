@@ -7,14 +7,17 @@ void mx_output_long(t_list *files, flags_t *flags) {
     int perm_max = 0;
     long link_max = 0;
     long size_max = 0;
+    acl_t acl;
     for (t_list *i = files; i; i = i->next) {
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
-        if(flags->e && size > 0) {
+        acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
+        if(flags->e && acl) {
             permissions = mx_strjoin(permissions, "+");
         } else if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
+        acl_free(acl);
         if(mx_strlen(permissions) > perm_max) {
             perm_max = mx_strlen(permissions);
         }
@@ -44,7 +47,8 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
-        if(flags->e && size > 0) {
+        acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
+        if(flags->e && acl) {
             permissions = mx_strjoin(permissions, "+");
         } else if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
@@ -80,9 +84,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
         for(long i = 0; i < s_len - count; i++) {
             mx_printstr(" ");
         }
-        //fix format of output down below
         mx_printlong((long)file_stat.st_size);
-        //char *date =    // add variations of time of modification and etc.
         time_t t_date;
         if(flags->u) {
             t_date = file_stat.st_atime;
@@ -91,21 +93,21 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         mx_printstr(" ");
         char *date = ctime(&t_date);
-        //mx_printstr(date);
         date += 4; 
-        mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - 9)));
+        int flag_T = 9;
+        if(flags->T) {
+            flag_T = 1;
+        }
+        mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - flag_T)));
         mx_printstr(" ");
         mx_printstr(mx_get_filename(i->data));
-        // Display ACL information if available
-        // acl_t acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
-        // if (acl != NULL) {
-        //     char *acl_text = acl_to_text(acl, NULL);
-        //     mx_printstr(" ACL: ");
-        //     mx_printstr(acl_text);
-        //     acl_free(acl);
-        //     free(acl_text);
-        // }
-
+        if (acl != NULL) {
+            char *acl_text = acl_to_text(acl, NULL);
+            mx_printstr(" ACL: ");
+            mx_printstr(acl_text);
+            free(acl_text);
+        }
+        acl_free(acl);
         mx_printstr("\n");
         if(flags->dog) {
             char *attrBuffer = (char *)malloc((size_t)size);
@@ -113,7 +115,19 @@ void mx_output_long(t_list *files, flags_t *flags) {
             for (ssize_t i = 0; i < attrCount; i += mx_strlen(&attrBuffer[i]) + 1) {
                 mx_printchar(attrBuffer[i]);
             }
+            mx_printstr("\n");
+        } else if(flags->e) {
+            acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
+            if(acl) {
+                char *acl_text = acl_to_text(acl, NULL);
+                // mx_printstr(" ACL: ");
+                mx_printstr(acl_text);
+                acl_free(acl);
+                free(acl_text);
+                mx_printstr("\n");
+            }
         }
+
     }
 
 }
