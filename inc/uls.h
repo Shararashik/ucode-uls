@@ -22,8 +22,9 @@
 
 void mx_get_flags(int argc, char *argv[], char **flags);
 typedef struct flags {
-    bool R, a, A, G, h, dog, e, T, longf, one, C, r, t, u, c, S, files_and_flags = false;
-    t_list *files, *folders;
+    bool R, a, A, G, h, dog, e, T, longf, one, C, r, t, u, c, S, files_and_flags;
+    t_list *files;
+    t_list *folders;
 }   flags_t;
 typedef bool (*SortComparator)(void *, void *);
 typedef void (*OutputFunction)(t_list *, flags_t *);
