@@ -8,6 +8,9 @@ SortComparator mx_choose_sort(flags_t *flags) {
     else if(flags->t && flags->u) {
         return mx_lastmodcmp;
     }
+    else if(flags->t && flags->c) {
+        return mx_lastchangcmp;
+    }   
     else if(flags->t) {
         return mx_timecmp;
     }  

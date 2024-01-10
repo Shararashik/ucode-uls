@@ -3,11 +3,13 @@
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
     int index = 999;
+    bool ind = false;
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
         
-        if (flags_str[i][0] != '-' && index == 999) {
+        if (flags_str[i][0] != '-' && ind == false) {
             index = i;
+            ind = true;
             //mx_printint(index);
             break;
         }
@@ -127,7 +129,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
         }
     }
     //cycle for init_path
-    if (index != 999) {
+    if (ind != false) {
         for (int i = index; i < argc; i++)  {
             struct stat path_stat;
             if (stat(flags_str[i], &path_stat) == -1) {

@@ -124,7 +124,11 @@ void mx_output_long(t_list *files, flags_t *flags) {
         time_t t_date;
         if(flags->u) {
             t_date = file_stat.st_atime;
-        } else {
+        }
+        else if(flags->c) {
+            t_date = file_stat.st_ctime;
+        }
+        else {
             t_date = file_stat.st_mtime;
         }
         mx_printstr(" ");
