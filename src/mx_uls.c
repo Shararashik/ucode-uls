@@ -3,13 +3,13 @@
 void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool fnf) {
     SortComparator sort = mx_choose_sort(flags);
     t_list *files;
-    if(flags->files_and_flags) {
+    if(flags->files_and_flags && fnf) {
         files = flags->folders;
         mx_sort_list(flags->files, sort);
     } else {
         files = mx_get_files(path, flags);
     }
-    if(flags->files) {
+    if(flags->files && fnf) {
         output(flags->files, flags);
     }
     // for(t_list *i = flags->files ;i; i = i->next) {
