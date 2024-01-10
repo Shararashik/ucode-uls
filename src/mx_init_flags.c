@@ -130,6 +130,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
     }
     //cycle for init_path
     if (ind) {
+        flags->files_and_flags = true;
         for (int i = index; i < argc; i++)  {
             struct stat path_stat;
             if (stat(flags_str[i], &path_stat) == -1) {
@@ -139,7 +140,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
             if(S_ISREG(path_stat.st_mode)) {
                 mx_push_back(&flags->files, mx_get_filename(flags_str[i]));
             } else if(S_ISDIR(path_stat.st_mode)) {
-                
+                mx_push_back(&flags->folders, flags_str[i]);
             } else {
                 mx_file_error(flags_str[i]);
             }

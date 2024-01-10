@@ -1,8 +1,17 @@
 #include "uls.h"
 
-void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
+void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool fnf) {
     SortComparator sort = mx_choose_sort(flags);
-    t_list *files = mx_get_files(path, flags);
+    t_list *files;
+    if(flags->files_and_flags) {
+        files = flags->folders;
+        mx_sort_list(flags->files, sort);
+    } else {
+        files = mx_get_files(path, flags);
+    }
+    if(flags->files) {
+        output(files, flags);
+    }
     // for(;files; files = files->next) {
     //     mx_printstr(files->data);
     //     mx_printstr("\n");
@@ -27,7 +36,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
                 flags->A = isA;
                 if(S_ISDIR(entry.st_mode) && !wrong_dir) {
                     mx_printstr("\n");
-                    mx_uls(flags, files->data, output, true);
+                    mx_uls(flags, files->data, output, true, false);
                 }
             }
         }
