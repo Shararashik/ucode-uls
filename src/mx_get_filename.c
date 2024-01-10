@@ -1,7 +1,7 @@
 #include "uls.h"
 
 char *mx_get_filename(char *str) {
-    char *filename;
+    char *filename = str;
     for(; *str; str++){
         if(*str == '/') {
             filename = str + 1;
