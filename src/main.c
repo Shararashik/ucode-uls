@@ -21,12 +21,16 @@ int main(int argc, char *argv[]) {
             mx_reverse_list(&flags->folders);
         }
         mx_sort_list(flags->folders, sort);
-        for(t_list *i = flags->folders ;i; i = i->next) {
-            if(!isFirst || flags->files) {
-                mx_printstr("\n");
+        if(!flags->folders->next && !flags->files) {
+            mx_uls(flags, flags->folders->data, output, false);
+        } else {
+            for(t_list *i = flags->folders ; i; i = i->next) {
+                if(!isFirst || flags->files) {
+                    mx_printstr("\n");
+                }
+                mx_uls(flags, i->data, output, true);
+                isFirst = false;
             }
-            mx_uls(flags, i->data, output, true);
-            isFirst = false;
         }
     } else {
         mx_uls(flags, ".", output, false);
