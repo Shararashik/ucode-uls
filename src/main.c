@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
             if (flags->r) {
                 mx_reverse_list(&flags->files);
             }
-            output(flags->files, flags);
+            output(flags->files, flags, flags->files);
         }
         bool isFirst = true;
         if (flags->r) {

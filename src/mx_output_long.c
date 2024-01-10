@@ -1,6 +1,6 @@
 #include "uls.h"
 
-void mx_output_long(t_list *files, flags_t *flags) {
+void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     struct stat file_stat;
     struct passwd *pw;
     struct group *gr;
@@ -57,7 +57,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
             size_max /= 10;;
         }
     }
-    for(t_list *i = files; i; i = i->next) {
+    for(t_list *i = files, *x = path; i && x;x = x->next, i = i->next) {
         if (lstat(i->data, &file_stat) == -1) {
             mx_file_error(i->data);
             exit(EXIT_FAILURE);
@@ -134,7 +134,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - flag_T)));
         mx_printstr(" ");
-        mx_printstr(i->data);
+        mx_print_filename(i->data, x->data, flags);
         acl_free(acl);
         mx_printstr("\n");
         if(flags->dog && size > 0) {

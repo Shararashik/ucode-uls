@@ -17,10 +17,11 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
         mx_printstr(path);
         mx_printstr(":\n");
     }
+    t_list *names = NULL;
     for(t_list *i = files ;i; i = i->next) {
-        i->data = mx_get_filename(i->data);
+        mx_push_back(&names, mx_get_filename(i->data));
     }
-    output(files, flags);
+    output(names, flags, files);
     if(flags->R) {
         for(; files; files = files->next) {
             struct stat entry;

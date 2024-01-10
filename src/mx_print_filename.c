@@ -3,7 +3,7 @@
 void mx_print_filename(const char *name, const char *full_path, flags_t *flags) {
     struct stat file_stat;
     if (lstat(full_path, &file_stat) == -1) {
-        mx_printstr("lstat");
+        mx_file_error(full_path);
     }
 
     if (flags->G) {
