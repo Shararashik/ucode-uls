@@ -22,7 +22,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
         mx_reverse_list(&files);
         mx_reverse_list(&flags->files);
     }
-    if(fnf && title) {
+    if(flags->files_and_flags && title) {
         mx_printstr(mx_get_filename(path));
         mx_printstr(":\n"); 
     }
