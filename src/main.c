@@ -16,26 +16,27 @@ int main(int argc, char *argv[]) {
             }
             output(flags->files, flags, flags->files);
         }
-        bool isFirst = true;
-        mx_sort_list(flags->folders, sort);
-        if (flags->r) {
-            mx_reverse_list(&flags->folders);
-        }
-        if(!flags->folders->next && !flags->files) {
-            mx_uls(flags, flags->folders->data, output, false);
-        } else {
-            for(t_list *i = flags->folders ; i; i = i->next) {
-                if(!isFirst || flags->files) {
-                    mx_printstr("\n");
+        if (flags->folders) {
+            bool isFirst = true;
+            mx_sort_list(flags->folders, sort);
+            if (flags->r) {
+                mx_reverse_list(&flags->folders);
+            }
+            if(!flags->folders->next && !flags->files) {
+                mx_uls(flags, flags->folders->data, output, false);
+            } else {
+                for(t_list *i = flags->folders ; i; i = i->next) {
+                    if(!isFirst || flags->files) {
+                        mx_printstr("\n");
+                    }
+                    mx_uls(flags, i->data, output, true);
+                    isFirst = false;
                 }
-                mx_uls(flags, i->data, output, true);
-                isFirst = false;
             }
         }
     } else {
         mx_uls(flags, ".", output, false);
     }
-    free(flags);
     return 0;
 }
 
