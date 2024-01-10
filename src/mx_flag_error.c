@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_flag_error(flags_t **flags, char flag_symbol) {
     mx_sys_error("uls: illegal option -- ");

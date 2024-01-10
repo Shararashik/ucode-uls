@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     SortComparator sort = mx_choose_sort(flags);

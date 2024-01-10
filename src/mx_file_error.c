@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_file_error(const char *wrong_directory) {
     mx_sys_error("uls: ");

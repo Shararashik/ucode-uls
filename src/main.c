@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 int main(int argc, char *argv[]) {
     //test

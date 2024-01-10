@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 char *mx_get_filename(char *str) {
     char *filename = str;

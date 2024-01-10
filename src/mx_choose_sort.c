@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 SortComparator mx_choose_sort(flags_t *flags) {
     //code various sorts of lists of file paths

@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_reverse_list(t_list **head) {
     t_list *new_list = NULL;

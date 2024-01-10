@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_simple_output(t_list *files, flags_t *flags, t_list *path) {
     int max_len = 0, count = 0;
@@ -44,7 +44,8 @@ void mx_simple_output(t_list *files, flags_t *flags, t_list *path) {
                 continue;
             }
             mx_print_filename(matrix[i][j], paths[i][j], flags);
-            if(j != columns - 1) {
+            //mx_printint(columns);
+            if(j != columns - 1 && matrix[i][j + 1]) {
                 int len = mx_strlen(matrix[i][j]);
                 if (flags->G) {
                     for(int k = 0; k <= max_len - mx_strlen(matrix[i][j]); k++) {
@@ -66,9 +67,4 @@ void mx_simple_output(t_list *files, flags_t *flags, t_list *path) {
         }
         mx_printstr("\n");
     }
-    // for(;files; files = files->next) {
-    //     char *filename = mx_get_filename(files->data);
-    //     mx_print_filename(filename, files->data, flags);
-    //     mx_printstr("\n");
-    // }
 }

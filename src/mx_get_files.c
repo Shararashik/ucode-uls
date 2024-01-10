@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 t_list *mx_get_files(char *path, flags_t *flags) {
     t_list *files = NULL;

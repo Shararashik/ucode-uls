@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 OutputFunction mx_get_output(flags_t *flags) {
     if(flags->longf) {

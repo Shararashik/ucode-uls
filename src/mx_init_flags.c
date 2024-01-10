@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));

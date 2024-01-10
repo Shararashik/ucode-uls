@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_print_filename(const char *name, const char *full_path, flags_t *flags) {
     struct stat file_stat;
@@ -16,14 +16,14 @@ void mx_print_filename(const char *name, const char *full_path, flags_t *flags) 
             color_code = COLOR_EXEC;
         } 
 
-        write(STDOUT_FILENO, color_code, strlen(color_code));
+        write(STDOUT_FILENO, color_code, mx_strlen(color_code));
 
-        write(STDOUT_FILENO, name, strlen(name));
+        write(STDOUT_FILENO, name, mx_strlen(name));
 
-        write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
+        write(STDOUT_FILENO, COLOR_RESET, mx_strlen(COLOR_RESET));
     }
     else {
-        write(STDOUT_FILENO, name, strlen(name));
+        write(STDOUT_FILENO, name, mx_strlen(name));
     }
 }
 

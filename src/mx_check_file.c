@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 bool mx_check_file(char *path, flags_t *flags) {
     char *filename = mx_get_filename(path);

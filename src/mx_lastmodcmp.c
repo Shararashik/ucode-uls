@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 bool mx_lastmodcmp(void *f1, void *f2) {
     struct stat entry, entry2;

@@ -1,4 +1,4 @@
-#include "uls.h"
+#include "../inc/uls.h"
 
 void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     struct stat file_stat;
