@@ -10,12 +10,12 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
         files = mx_get_files(path, flags);
     }
     if(flags->files) {
-        output(files, flags);
+        output(flags->files, flags);
     }
-    for(t_list *i = flags->files ;i; i = i->next) {
-        mx_printstr(i->data);
-        mx_printstr("\n");
-    }
+    // for(t_list *i = flags->files ;i; i = i->next) {
+    //     mx_printstr(i->data);
+    //     mx_printstr("\n");
+    // }
     mx_sort_list(files, mx_abccmp);
     mx_sort_list(files, sort);
     if (flags->r) {
