@@ -9,18 +9,23 @@ int main(int argc, char *argv[]) {
     OutputFunction output = mx_get_output(flags);
     if(flags->files_and_flags) {
         if(flags->files) {
+            SortComparator sort = mx_choose_sort(flags);
+            mx_sort_list(flags->files, sort);
             if (flags->r) {
                 mx_reverse_list(&flags->files);
             }
-            SortComparator sort = mx_choose_sort(flags);
-            mx_sort_list(flags->files, sort);
             output(flags->files, flags);
         }
         bool isFirst = true;
         for(t_list *i = flags->folders ;i; i = i->next) {
             if(!isFirst || flags->files) {
                 mx_printstr("\n");
-            } 
+            }
+            SortComparator sort = mx_choose_sort(flags);
+            if (flags->r) {
+                mx_reverse_list(&flags->folders);
+            }
+            mx_sort_list(flags->folders, sort);
             mx_uls(flags, i->data, output, true);
             isFirst = false;
         }
