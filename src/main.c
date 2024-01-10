@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
             output(flags->files, flags, flags->files);
         }
         bool isFirst = true;
+        mx_sort_list(flags->folders, sort);
         if (flags->r) {
             mx_reverse_list(&flags->folders);
         }
-        mx_sort_list(flags->folders, sort);
         if(!flags->folders->next && !flags->files) {
             mx_uls(flags, flags->folders->data, output, false);
         } else {
