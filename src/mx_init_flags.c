@@ -3,7 +3,7 @@
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
     int index = 0;
-    bool ind = false;
+    bool ind;
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
         
@@ -129,17 +129,19 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
         }
     }
     //cycle for init_path
-    if (ind != false) {
+    if (ind) {
         for (int i = index; i < argc; i++)  {
             struct stat path_stat;
             if (stat(flags_str[i], &path_stat) == -1) {
                 mx_file_error(flags_str[i]);
                 //uls: xxx: No such file or directory
             }
-
-            if (S_ISDIR(path_stat.st_mode) || S_ISREG(path_stat.st_mode)) {
-                //mx_printstr(flags_str[i]);
-                //mx_printstr(" ");
+            if(S_ISREG(path_stat.st_mode)) {
+                if(!flags->files) {
+                    mx_push_back(flags->files, mx_get_filename(flags_str[i]));
+                }
+            } else if(S_ISDIR(path_stat.st_mode)) {
+                
             } else {
                 mx_file_error(flags_str[i]);
             }

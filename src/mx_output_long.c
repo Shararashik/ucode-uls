@@ -141,25 +141,18 @@ void mx_output_long(t_list *files, flags_t *flags) {
         mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - flag_T)));
         mx_printstr(" ");
         mx_printstr(mx_get_filename(i->data));
-        if (acl != NULL) {
-            char *acl_text = acl_to_text(acl, NULL);
-            mx_printstr(" ACL: ");
-            mx_printstr(acl_text);
-            free(acl_text);
-        }
         acl_free(acl);
         mx_printstr("\n");
-        if(flags->e && flags->dog) {
+        if(flags->e) {
             acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
             if(acl) {
                 char *acl_text = acl_to_text(acl, NULL);
-                // mx_printstr(" ACL: ");
                 mx_printstr(acl_text);
                 acl_free(acl);
                 free(acl_text);
                 mx_printstr("\n");
             }
-        } else if(flags->e) {
+        } else if(flags->dog) {
             char *attrBuffer = (char *)malloc((size_t)size);
             ssize_t attrCount = listxattr(i->data, attrBuffer, (size_t)size, 0);
             for (ssize_t i = 0; i < attrCount; i += mx_strlen(&attrBuffer[i]) + 1) {
