@@ -9,7 +9,6 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     } else {
         files = mx_get_files(path, flags);
     }
-    mx_printstr("my proebalis");
     if(flags->files) {
         output(files, flags);
     }
