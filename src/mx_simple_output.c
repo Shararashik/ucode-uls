@@ -12,7 +12,11 @@ void mx_simple_output(t_list *files, flags_t *flags) {
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int width = w.ws_col;
+    
     int columns = width / max_len;
+    if(!flags->G) {
+        columns = width / mx_calc_spaces(max_len);
+    }
     if(!columns) {
         columns++;
     }
@@ -36,8 +40,22 @@ void mx_simple_output(t_list *files, flags_t *flags) {
             }
             mx_print_filename(mx_get_filename(matrix[i][j]), matrix[i][j], flags);
             if(j != columns - 1) {
-                for(int k = 0; k <= max_len - mx_strlen(mx_get_filename(matrix[i][j])); k++) {
-                    mx_printstr(" ");
+                int len = mx_strlen(mx_get_filename(matrix[i][j]));
+                if (flags->G) {
+                    for(int k = 0; k <= max_len - mx_strlen(mx_get_filename(matrix[i][j])); k++) {
+                        mx_printstr(" ");
+                    }                    
+                }
+                else {
+                    //mx_printstr("\t");
+                    int tabs = mx_calc_spaces(max_len) - len;
+                    int tabs_count = tabs / 8;
+                    if (tabs % 8 != 0) {
+                        tabs_count++;
+                    }
+                    for(int k = 0; k < tabs_count; k++) {
+                        mx_printstr("\t");
+                    }                      
                 }
             }
         }

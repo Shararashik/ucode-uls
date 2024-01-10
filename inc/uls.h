@@ -53,3 +53,4 @@ bool mx_timecmp(void *f1, void *f2);
 void mx_reverse_list(t_list **head);
 bool mx_lastmodcmp(void *f1, void *f2);
 bool mx_lastchangcmp(void *f1, void *f2);
+int mx_calc_spaces(int max_len);
