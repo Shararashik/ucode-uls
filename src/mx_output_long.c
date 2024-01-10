@@ -145,8 +145,8 @@ void mx_output_long(t_list *files, flags_t *flags) {
             // for (long j = 0; j < long; j += mx_strlen(&attrBuffer[j]) + 1) {
             //     mx_printchar(attrBuffer[j]);
             // }
-            while(attrBuffer != '\0') {
-                ssize_t value_size = getxattr(i->data, attrBuffer, value, sizeof(value));
+            while(*attrBuffer != '\0') {
+                ssize_t value_size = getxattr(i->data, attrBuffer, value, sizeof(value), 0, 0);
                 if(value_size != -1) {
                     mx_printstr(value);
                 }
