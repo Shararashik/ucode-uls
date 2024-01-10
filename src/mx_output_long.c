@@ -34,7 +34,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
             const char *units[] = {"B", "K", "M", "G", "T"};
             int j = 0;
             double size_in_units = (double)file_stat.st_size;
-            while (size_in_units >= 1024 && j < sizeof(units) / sizeof(units[0]) - 1) {
+            while (size_in_units >= 1024 && (unsigned long)j < sizeof(units) / sizeof(units[0]) - 1) {
                 size_in_units /= 1024;
                 j++;
             }
@@ -102,7 +102,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
             const char *units[] = {"B", "K", "M", "G", "T"};
             int j = 0;
             double size_in_units = (double)file_stat.st_size;
-            while (size_in_units >= 1024 && j < sizeof(units) / sizeof(units[0]) - 1) {
+            while (size_in_units >= 1024 && (unsigned long)j < sizeof(units) / sizeof(units[0]) - 1) {
                 size_in_units /= 1024;
                 j++;
             }
