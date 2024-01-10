@@ -139,7 +139,8 @@ void mx_output_long(t_list *files, flags_t *flags) {
         mx_printstr("\n");
         if(flags->dog) {
             char *attrBuffer = (char *)malloc((long)size);
-            long attrCount = listxattr(i->data, attrBuffer, (long)size, 0);
+            long attrCount;
+            listxattr(i->data, attrBuffer, (long)size, attrCount);
             for (long j = 0; j < attrCount; j += mx_strlen(&attrBuffer[j]) + 1) {
                 mx_printchar(attrBuffer[j]);
             }
