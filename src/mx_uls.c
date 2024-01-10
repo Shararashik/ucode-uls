@@ -17,6 +17,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
         mx_printstr(path);
         mx_printstr(":\n");
     }
+    output(files, flags);
     if(flags->R) {
         for(; files; files = files->next) {
             struct stat entry;
