@@ -147,13 +147,13 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         if(flags->e) {
             acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
-            //if(acl) {
+            if(acl) {
                 char *acl_text = acl_to_text(acl, NULL);
                 mx_printstr(acl_text);
                 acl_free(acl);
                 free(acl_text);
                 mx_printstr("\n");
-            //}
+            }
         }
 
     }
