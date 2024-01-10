@@ -2,7 +2,7 @@
 
 flags_t* mx_init_flags(char **flags_str, int argc) {
     flags_t *flags = malloc(sizeof(flags_t));
-    int index = 999;
+    int index = 0;
     bool ind = false;
     for(int i = 0; i < argc; i++) {
         int minus = 0, count = 0;
