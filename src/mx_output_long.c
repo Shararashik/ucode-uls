@@ -11,7 +11,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
     long total_blocks = 0;
     for (t_list *i = files; i; i = i->next) {
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
-        ssize_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
+        ssize_t size = listxattr(i->data, NULL, 0, 0);
         if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
@@ -19,7 +19,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
             perm_max = mx_strlen(permissions);
         }
         if (lstat(i->data, &file_stat) == -1) {
-            mx_file_error(mx_get_filename(i->data));
+            mx_file_error(i->data);
             exit(EXIT_FAILURE);
         }
         total_blocks += file_stat.st_blocks;
@@ -59,11 +59,11 @@ void mx_output_long(t_list *files, flags_t *flags) {
     }
     for(t_list *i = files; i; i = i->next) {
         if (lstat(i->data, &file_stat) == -1) {
-            mx_file_error(mx_get_filename(i->data));
+            mx_file_error(i->data);
             exit(EXIT_FAILURE);
         }
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
-        size_t size = listxattr(mx_get_filename(i->data), NULL, 0, 0);
+        size_t size = listxattr(i->data, NULL, 0, 0);
         acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
         if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
@@ -134,7 +134,7 @@ void mx_output_long(t_list *files, flags_t *flags) {
         }
         mx_printstr(mx_strndup(date, (size_t)(mx_strlen(date) - flag_T)));
         mx_printstr(" ");
-        mx_printstr(mx_get_filename(i->data));
+        mx_printstr(i->data);
         acl_free(acl);
         mx_printstr("\n");
         if(flags->dog && size > 0) {
