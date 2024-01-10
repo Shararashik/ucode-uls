@@ -38,11 +38,11 @@ void mx_simple_output(t_list *files, flags_t *flags) {
             if(!matrix[i][j]){
                 continue;
             }
-            mx_print_filename(mx_get_filename(matrix[i][j]), matrix[i][j], flags);
+            mx_print_filename(matrix[i][j], matrix[i][j], flags);
             if(j != columns - 1) {
-                int len = mx_strlen(mx_get_filename(matrix[i][j]));
+                int len = mx_strlen(matrix[i][j]);
                 if (flags->G) {
-                    for(int k = 0; k <= max_len - mx_strlen(mx_get_filename(matrix[i][j])); k++) {
+                    for(int k = 0; k <= max_len - mx_strlen(matrix[i][j]); k++) {
                         mx_printstr(" ");
                     }                    
                 }
