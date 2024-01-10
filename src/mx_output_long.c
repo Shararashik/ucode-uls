@@ -137,8 +137,6 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         mx_printstr(" ");
         mx_print_filename(i->data, x->data, flags);
         acl_free(acl);
-        free(permissions);
-        free(date);
         mx_printstr("\n");
         if(flags->dog && size > 0) {
             char value[256];
@@ -155,7 +153,6 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
                 }
                 attrBuffer++;
             }
-            free(attrBuffer);
             mx_printstr("\n");
         }
         if(flags->e) {
