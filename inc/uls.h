@@ -39,7 +39,7 @@ void mx_simple_output(t_list *files, flags_t *flags);
 void mx_output_with_flag_one(t_list *files, flags_t *flags);
 SortComparator mx_choose_sort(flags_t *flags);
 t_list *mx_get_files(char *path, flags_t *flags);
-void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title);
+void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool fnf);
 OutputFunction mx_get_output(flags_t *flags);
 bool mx_abccmp(void *s1, void *s2);
 bool mx_check_file(char *path, flags_t *flags);
