@@ -9,7 +9,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     long size_max = 0;
     acl_t acl;
     long total_blocks = 0;
-    for (t_list *i = files; i; i = i->next) {
+    for (t_list *i = files, *x = path; i && x; x = x->next, i = i->next) {
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
         ssize_t size = listxattr(i->data, NULL, 0, 0);
         if(size > 0) {
