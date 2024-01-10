@@ -11,7 +11,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     long total_blocks = 0;
     for (t_list *i = files, *x = path; i && x; x = x->next, i = i->next) {
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
-        ssize_t size = listxattr(i->data, NULL, 0, 0);
+        ssize_t size = listxattr(x->data, NULL, 0, 0);
         if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
@@ -59,12 +59,12 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     }
     for(t_list *i = files, *x = path; i && x;x = x->next, i = i->next) {
         if (lstat(i->data, &file_stat) == -1) {
-            mx_file_error(i->data);
+            mx_file_error(x->data);
             exit(EXIT_FAILURE);
         }
         char *permissions = mx_strdup(mx_get_permissions(file_stat.st_mode));
-        size_t size = listxattr(i->data, NULL, 0, 0);
-        acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
+        size_t size = listxattr(x->data, NULL, 0, 0);
+        acl = acl_get_file(x->data, ACL_TYPE_ACCESS);
         if(size > 0) {
             permissions = mx_strjoin(permissions, "@");
         }
@@ -141,7 +141,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
             char value[256];
             char *attrBuffer = (char *)malloc((long)size);
             // long attrCount = 0;
-            listxattr(i->data, attrBuffer, (long)size, 0);
+            listxattr(x->data, attrBuffer, (long)size, 0);
             // for (long j = 0; j < long; j += mx_strlen(&attrBuffer[j]) + 1) {
             //     mx_printchar(attrBuffer[j]);
             // }
@@ -156,7 +156,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
             mx_printstr("\n");
         }
         if(flags->e) {
-            acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
+            acl = acl_get_file(x->data, ACL_TYPE_ACCESS);
             if(acl) {
                 char *acl_text = acl_to_text(acl, NULL);
                 mx_printstr(acl_text);
