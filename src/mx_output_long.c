@@ -18,7 +18,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         if(mx_strlen(permissions) > perm_max) {
             perm_max = mx_strlen(permissions);
         }
-        if (lstat(i->data, &file_stat) == -1) {
+        if (lstat(x->data, &file_stat) == -1) {
             mx_file_error(i->data);
             exit(EXIT_FAILURE);
         }
@@ -58,7 +58,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         }
     }
     for(t_list *i = files, *x = path; i && x;x = x->next, i = i->next) {
-        if (lstat(i->data, &file_stat) == -1) {
+        if (lstat(x->data, &file_stat) == -1) {
             mx_file_error(x->data);
             exit(EXIT_FAILURE);
         }
