@@ -146,7 +146,11 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
             }
 
         }   
-    }    
+    } else {
+        flags->files_and_flags = false;
+        flags->files = false;
+        flags->folders = false;
+    } 
     return flags;
 }
 
