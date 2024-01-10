@@ -137,7 +137,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
                 //uls: xxx: No such file or directory
             }
             if(S_ISREG(path_stat.st_mode)) {
-                mx_push_back(flags->files, mx_get_filename(flags_str[i]));
+                mx_push_back(&flags->files, mx_get_filename(flags_str[i]));
             } else if(S_ISDIR(path_stat.st_mode)) {
                 
             } else {
