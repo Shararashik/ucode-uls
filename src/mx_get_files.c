@@ -4,7 +4,9 @@ t_list *mx_get_files(char *path, flags_t *flags) {
     t_list *files = NULL;
     DIR *dir;
     struct dirent *entry;
+    mx_printint(1);
     dir = opendir(path);
+    mx_printint(2);
     if (dir == NULL) {
         //change
         perror("Error opening directory");
