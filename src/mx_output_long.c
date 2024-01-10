@@ -138,22 +138,22 @@ void mx_output_long(t_list *files, flags_t *flags) {
         acl_free(acl);
         mx_printstr("\n");
         if(flags->dog) {
-            char *attrBuffer = (char *)malloc((size_t)size);
-            ssize_t attrCount = listxattr(i->data, attrBuffer, (size_t)size, 0);
-            for (ssize_t i = 0; i < attrCount; i += mx_strlen(&attrBuffer[i]) + 1) {
-                mx_printchar(attrBuffer[i]);
+            char *attrBuffer = (char *)malloc((long)size);
+            long attrCount = listxattr(i->data, attrBuffer, (long)size, 0);
+            for (long j = 0; j < attrCount; j += mx_strlen(&attrBuffer[j]) + 1) {
+                mx_printchar(attrBuffer[j]);
             }
             mx_printstr("\n");
         }
         if(flags->e) {
             acl = acl_get_file(i->data, ACL_TYPE_ACCESS);
-            if(acl) {
+            //if(acl) {
                 char *acl_text = acl_to_text(acl, NULL);
                 mx_printstr(acl_text);
                 acl_free(acl);
                 free(acl_text);
                 mx_printstr("\n");
-            }
+            //}
         }
 
     }
