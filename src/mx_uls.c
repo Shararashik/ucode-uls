@@ -20,6 +20,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
     mx_sort_list(files, sort);
     if (flags->r) {
         mx_reverse_list(&files);
+        mx_reverse_list(&flags->files);
     }
     if(title) {
         mx_printstr(path);
