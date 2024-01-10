@@ -22,7 +22,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
         mx_reverse_list(&files);
         mx_reverse_list(&flags->files);
     }
-    if(flags->files_and_flags && title) {
+    if(fnf && title) {
         mx_printstr(mx_get_filename(path));
         mx_printstr(":\n"); 
     }
@@ -33,8 +33,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
     if(!fnf) {
         output(files, flags);
     }
-    if(flags->R || flags->files_and_flags) {
-        flags->files_and_flags = false;
+    if(flags->R || fnf) {
         for(; files; files = files->next) {
             struct stat entry;
             if(!lstat(files->data, &entry)) {
