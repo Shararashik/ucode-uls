@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
             output(flags->files, flags);
         }
         for(t_list *i = flags->folders ;i; i = i->next) {
-            mx_uls(flags, i->data, output, true, flags->files_and_flags);
+            mx_uls(flags, i->data, output, true);
         }
     } else {
-        mx_uls(flags, ".", output, false, flags->files_and_flags);
+        mx_uls(flags, ".", output, false);
     }
     free(flags);
     return 0;

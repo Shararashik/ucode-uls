@@ -1,6 +1,6 @@
 #include "uls.h"
 
-void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool fnf) {
+void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     SortComparator sort = mx_choose_sort(flags);
     t_list *files;
     files = mx_get_files(path, flags);
