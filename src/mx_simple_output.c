@@ -3,7 +3,7 @@
 void mx_simple_output(t_list *files, flags_t *flags) {
     int max_len = 0, count = 0;
     for(t_list *i = files; i; i = i->next) {
-        char *filename = mx_get_filename(i->data);
+        char *filename = i->data;
         if(max_len < mx_strlen(filename)) {
             max_len = mx_strlen(filename);
         }
