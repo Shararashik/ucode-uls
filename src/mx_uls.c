@@ -1,6 +1,6 @@
 #include "uls.h"
 
-void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool fnf) {
+void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     SortComparator sort = mx_choose_sort(flags);
     t_list *files;
     if(flags->files_and_flags) {
@@ -36,7 +36,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
                 flags->A = isA;
                 if(S_ISDIR(entry.st_mode) && !wrong_dir) {
                     mx_printstr("\n");
-                    mx_uls(flags, files->data, output, true, false);
+                    mx_uls(flags, files->data, output, true);
                 }
             }
         }
