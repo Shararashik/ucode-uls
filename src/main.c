@@ -16,8 +16,13 @@ int main(int argc, char *argv[]) {
             mx_sort_list(flags->files, sort);
             output(flags->files, flags);
         }
+        bool isFirst = true;
         for(t_list *i = flags->folders ;i; i = i->next) {
+            if(!isFirst || flags->files) {
+                mx_printstr("\n");
+            } 
             mx_uls(flags, i->data, output, true);
+            isFirst = false;
         }
     } else {
         mx_uls(flags, ".", output, false);

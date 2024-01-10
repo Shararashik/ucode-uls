@@ -13,6 +13,9 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title) {
     if (flags->r) {
         mx_reverse_list(&files);
     }
+    // if(files->files_and_flags && title) {
+    //     mx_printstr("\n");
+    // }
     if(title) {
         mx_printstr(path);
         mx_printstr(":\n");
