@@ -42,7 +42,6 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
                 size_max = (long)file_stat.st_size;
             }
         }
-        free(permissions);
         
     }
     mx_printstr("total ");
