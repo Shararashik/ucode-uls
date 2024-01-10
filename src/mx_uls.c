@@ -26,7 +26,7 @@ void mx_uls(flags_t *flags, char *path, OutputFunction output, bool title, bool 
         mx_printstr(path);
         mx_printstr(":\n");
     }
-    if(!flags->files_and_flags) {
+    if(!fnf) {
         output(files, flags);
     }
     if(flags->R || flags->files_and_flags) {
