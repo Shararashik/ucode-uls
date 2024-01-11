@@ -1,23 +1,48 @@
-.PHONY: all uls clean uninstall reinstall
+CC = clang
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+LDFLAGS = $(LIB_DIR)/$(LIB)
+INCLUDES = -I$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR)
 
-all: uls clean
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = inc
 
-uls:
-	@make -sC libmx
-	@mkdir -p obj
-	@cd obj ; clang -std=c11 -Wall -Wextra -Werror -Wpedantic ../src/*.c -c
-	@clang -std=c11 -Wall -Wextra -Werror -Wpedantic -I inc/*.h libmx/libmx.a src/*.c -lmx -o uls
-	@make uninstall -sC libmx
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:%.c=%.o))
 
-uninstall: clean
-	@rm -rf uls
+LIB_DIR = libmx
+LIB = libmx.a
+
+TARGET = uls
+
+.PHONY: all clean uninstall reinstall
+
+all: $(LIB) $(TARGET)
+
+$(LIB):
+	make -C $(LIB_DIR)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) $^ $(LDFLAGS) -o $@
+
+$(OBJ): $(SRC)
+	mkdir $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $^
+	mv *.o $(OBJ_DIR)
 
 clean:
-	@make clean -C libmx
-	@rm -rf inc/@*.gch
-	@rm -rf obj
+	rm -rf $(OBJ_DIR)
+	make -C $(LIB_DIR) clean
 
-reinstall: uninstall all
+uninstall:
+	rm -f $(TARGET)
+	make -C $(LIB_DIR) uninstall
+
+reinstall:
+	make -C $(LIB_DIR) reinstall
+	make clean
+	make uninstall
+	make all
 
 
 
