@@ -44,9 +44,11 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         }
         
     }
-    mx_printstr("total ");
-    mx_printlong(total_blocks);
-    mx_printstr("\n");
+    if (total_blocks != 0) {
+        mx_printstr("total ");
+        mx_printlong(total_blocks);
+        mx_printstr("\n");
+    }
     int l_len;
     for(l_len = 0; link_max != 0; l_len++) {
         link_max /= 10;
@@ -107,6 +109,13 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         } else {
             long size_len = (long)file_stat.st_size;
             int count;
+            if(size_len == 0) {
+                count = 1;
+            } else {
+                for(count = 0; size_len != 0; count++) {
+                    size_len /= 10;
+                }
+            }
             for(count = 0; size_len != 0; count++) {
                 size_len /= 10;
             }
