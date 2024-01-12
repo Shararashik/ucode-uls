@@ -2,7 +2,7 @@
 
 char *mx_get_permissions(mode_t mode) {
     char permissions[11];
-    permissions[0] = (mode & S_ISDIR(mode)) ? 'd' : '-';
+    permissions[0] = (mode & S_IFMT) == S_IFDIR ? 'd' : '-';
     permissions[1] = (mode & S_IRUSR) ? 'r' : '-';
     permissions[2] = (mode & S_IWUSR) ? 'w' : '-';
     permissions[3] = (mode & S_IXUSR) ? 'x' : '-';
