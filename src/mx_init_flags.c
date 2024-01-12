@@ -151,6 +151,7 @@ flags_t* mx_init_flags(char **flags_str, int argc) {
         flags->files = false;
         flags->folders = false;
     } 
+    flags->file_o = false;
     return flags;
 }
 

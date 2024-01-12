@@ -22,7 +22,7 @@
 
 void mx_get_flags(int argc, char *argv[], char **flags);
 typedef struct flags {
-    bool R, a, A, G, h, dog, e, T, longf, one, C, r, t, u, c, S, files_and_flags;
+    bool R, a, A, G, h, dog, e, T, longf, one, C, r, t, u, c, S, files_and_flags, file_o;
     t_list *files;
     t_list *folders;
 }   flags_t;
