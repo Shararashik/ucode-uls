@@ -44,7 +44,8 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
         }
         
     }
-    if (total_blocks != 0) {
+
+    if (files) {
         mx_printstr("total ");
         mx_printlong(total_blocks);
         mx_printstr("\n");
@@ -56,7 +57,7 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
     int s_len;
     if(!flags->h) {
         for(s_len = 0; size_max != 0; s_len++) {
-            size_max /= 10;;
+            size_max /= 10;
         }
     }
     for(t_list *i = files, *x = path; i && x;x = x->next, i = i->next) {
@@ -115,9 +116,6 @@ void mx_output_long(t_list *files, flags_t *flags, t_list *path) {
                 for(count = 0; size_len != 0; count++) {
                     size_len /= 10;
                 }
-            }
-            for(count = 0; size_len != 0; count++) {
-                size_len /= 10;
             }
             for(long i = 0; i < s_len - count; i++) {
                 mx_printstr(" ");
